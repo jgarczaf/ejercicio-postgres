@@ -1,0 +1,156 @@
+.app-header {
+  background-color: var(--bg-primary);
+  border-bottom: 2px solid var(--santander-red);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.logo-section {
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--santander-red);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--santander-red-dark);
+  }
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+}
+
+.logo-text {
+  letter-spacing: -0.5px;
+}
+
+.header-nav {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex: 1;
+  justify-content: center;
+  margin: 0 var(--spacing-lg);
+}
+
+.nav-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    color: var(--santander-red);
+    background-color: rgba(220, 0, 0, 0.05);
+  }
+
+  &.active {
+    color: var(--santander-red);
+    background-color: rgba(220, 0, 0, 0.1);
+    font-weight: var(--font-weight-semibold);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--santander-red);
+      border-radius: 2px 2px 0 0;
+    }
+  }
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  color: var(--text-primary);
+
+  &:hover {
+    background-color: rgba(220, 0, 0, 0.1);
+    transform: scale(1.1);
+  }
+}
+
+.user-menu {
+  display: flex;
+}
+
+.user-button {
+  background: none;
+  border: 2px solid var(--santander-red);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: var(--text-primary);
+
+  &:hover {
+    background-color: rgba(220, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    height: 70px;
+    padding: 0 15px;
+  }
+
+  .header-nav {
+    gap: 15px;
+    margin: 0 15px;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+
+  .logo-text {
+    display: none;
+  }
+}

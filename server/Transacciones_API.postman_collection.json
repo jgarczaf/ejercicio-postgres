@@ -1,0 +1,167 @@
+{
+  "info": {
+    "name": "Transacciones API",
+    "description": "API de Transacciones Bancarias - NestJS 9",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Transacciones (Con Paginación)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/transactions?page=1&limit=10",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["transactions"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obtener Transacción por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/transactions/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["transactions", "1"]
+        }
+      }
+    },
+    {
+      "name": "Crear Transacción",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"concept\": \"Nómina Enero\",\n  \"category\": \"Ingresos\",\n  \"amount\": 2500.00,\n  \"date\": \"2024-01-17\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/transactions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["transactions"]
+        }
+      }
+    },
+    {
+      "name": "Crear Transacción - Gasto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"concept\": \"Compra en Supermercado\",\n  \"category\": \"Alimentación\",\n  \"amount\": 87.50,\n  \"date\": \"2024-01-16\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/transactions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["transactions"]
+        }
+      }
+    },
+    {
+      "name": "Actualizar Transacción (PUT - Total)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"concept\": \"Nómina Febrero\",\n  \"category\": \"Ingresos\",\n  \"amount\": 2600.00,\n  \"date\": \"2024-02-17\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/transactions/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["transactions", "1"]
+        }
+      }
+    },
+    {
+      "name": "Actualizar Transacción (PATCH - Parcial)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 2700.00\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/transactions/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["transactions", "1"]
+        }
+      }
+    },
+    {
+      "name": "Eliminar Transacción",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/transactions/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["transactions", "1"]
+        }
+      }
+    }
+  ]
+}
