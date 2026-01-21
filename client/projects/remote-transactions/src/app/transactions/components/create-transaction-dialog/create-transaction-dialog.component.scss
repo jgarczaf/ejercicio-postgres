@@ -1,0 +1,5 @@
+.dialog-content { max-width: 500px; }
+.form { display: flex; flex-wrap: wrap; gap: var(--spacing-md); }
+.full { flex: 1 1 100%; }
+.half { flex: 1 1 calc(50% - var(--spacing-sm)); min-width: 200px; }
+

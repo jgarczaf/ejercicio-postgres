@@ -1,0 +1,49 @@
+// Santander Theme for Angular Material v16
+// Usando la API oficial de Material v16 con define-light-theme
+
+@use '@angular/material' as mat;
+
+// Importar core de Material (obligatorio)
+@include mat.core();
+
+// Usar las paletas prebuilt de Material
+$primary: mat.define-palette(mat.$red-palette);
+$accent: mat.define-palette(mat.$orange-palette);
+$warn: mat.define-palette(mat.$red-palette);
+
+// Tema claro
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+// Tema oscuro
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+// Aplicar tema claro por defecto
+@include mat.all-component-colors($light-theme);
+
+// Aplicar tema oscuro cuando color-scheme es dark
+@media (prefers-color-scheme: dark) {
+  @include mat.all-component-colors($dark-theme);
+}
+
+// Transiciones suaves para Material
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-flat-button,
+.mat-mdc-stroked-button,
+.mat-mdc-icon-button,
+.mat-mdc-list-item,
+.mat-mdc-form-field {
+  transition: all 0.2s ease;
+}

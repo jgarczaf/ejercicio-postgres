@@ -1,0 +1,151 @@
+<div class="detail-container">
+  <div class="detail-header">
+    <button mat-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon> Volver
+    </button>
+    <h1>Detalles de la transacción</h1>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <mat-progress-spinner
+      mode="indeterminate"
+      diameter="36"
+    ></mat-progress-spinner>
+  </div>
+
+  <mat-card *ngIf="!isLoading && transaction" class="detail-card">
+    <div class="card-head">
+      <h2>{{ transaction.name }}</h2>
+      <div class="actions">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="enableEdit()"
+          aria-label="Editar"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="deleteTransaction()"
+          aria-label="Eliminar"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="grid">
+      <div class="cell">
+        <div class="label">ID de transacción</div>
+        <div class="value">{{ transaction._id || transaction.id }}</div>
+      </div>
+      <div class="cell">
+        <div class="label">Tipo</div>
+        <div class="value">
+          <span class="type-badge">{{ transaction.type }}</span>
+        </div>
+      </div>
+      <div class="cell">
+        <div class="label">Monto</div>
+        <div class="value amount">
+          {{ transaction.amount | currency: "USD" }}
+        </div>
+      </div>
+      <div class="cell">
+        <div class="label">Estado</div>
+        <div class="value">
+          <mat-chip-set>
+            <mat-chip class="status-chip" [ngClass]="transaction.status">{{
+              transaction.status | titlecase
+            }}</mat-chip>
+          </mat-chip-set>
+        </div>
+      </div>
+      <div class="cell">
+        <div class="label">Usuario</div>
+        <div class="value">{{ transaction.userId }}</div>
+      </div>
+      <div class="cell">
+        <div class="label">Creado</div>
+        <div class="value">{{ transaction.createdAt | date: "medium" }}</div>
+      </div>
+      <div class="cell" *ngIf="transaction.updatedAt">
+        <div class="label">Actualizado</div>
+        <div class="value">{{ transaction.updatedAt | date: "medium" }}</div>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card *ngIf="isEditing" class="edit-card">
+    <h2>Editar transacción</h2>
+    <form (submit)="$event.preventDefault()">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="editFormData.name" name="name" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half">
+          <mat-label>Tipo</mat-label>
+          <mat-select [(ngModel)]="editFormData.type" name="type">
+            <mat-option value="">Seleccionar tipo...</mat-option>
+            <mat-option value="transfer">transfer</mat-option>
+            <mat-option value="payment">payment</mat-option>
+            <mat-option value="direct_debit">direct_debit</mat-option>
+            <mat-option value="investment">investment</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="half">
+          <mat-label>Monto</mat-label>
+          <input
+            matInput
+            type="number"
+            step="0.01"
+            [(ngModel)]="editFormData.amount"
+            name="amount"
+          />
+          <span matTextSuffix>€</span>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half">
+          <mat-label>Estado</mat-label>
+          <mat-select [(ngModel)]="editFormData.status" name="status">
+            <mat-option value="">Seleccionar estado...</mat-option>
+            <mat-option
+              *ngFor="let status of transactionStatuses"
+              [value]="status"
+              >{{ status }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="actions">
+        <button
+          mat-stroked-button
+          (click)="cancelEdit()"
+          [disabled]="isLoading"
+        >
+          Cancelar
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="saveChanges()"
+          [disabled]="isLoading"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card class="empty" *ngIf="!isLoading && !transaction">
+    <p>No se pudo cargar la transacción</p>
+    <button mat-button (click)="goBack()">Volver</button>
+  </mat-card>
+</div>

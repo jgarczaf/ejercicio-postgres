@@ -1,0 +1,294 @@
+.transactions-container { max-width: 920px; margin: 0 auto; padding: var(--spacing-md); }
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-md); gap: var(--spacing-md); }
+.page-header h1 { margin: 0; font-weight: var(--font-weight-bold); color: var(--santander-red); }
+.page-header .subtitle { color: var(--text-secondary); margin: var(--spacing-xs) 0 0 0; }
+
+.list-card { padding: 0; overflow: hidden; border: 1px solid var(--border-color); }
+.list-card .card-title { display: flex; justify-content: space-between; padding: var(--spacing-md); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+.list-card .count { color: var(--text-secondary); font-weight: var(--font-weight-medium); }
+
+::ng-deep .mat-mdc-list-item { padding-left: var(--spacing-sm); padding-right: var(--spacing-sm); }
+::ng-deep .mdc-list-item__content { width: 100%; }
+
+.leading .icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  font-weight: var(--font-weight-bold);
+  color: white;
+
+  &.transfer { background: var(--santander-red); }
+  &.payment { background: var(--santander-blue); }
+  &.direct_debit { background: var(--warning); }
+  &.investment { background: #9C27B0; }
+}
+
+.content .title { font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+.content .meta { display: flex; align-items: center; gap: var(--spacing-xs); color: var(--text-secondary); font-size: var(--font-size-sm); }
+.content .meta .sep { margin: 0 var(--spacing-xs); }
+
+.trailing { text-align: right; }
+.trailing .amount { font-weight: var(--font-weight-bold); color: var(--santander-red); }
+
+.status-chip {
+  height: 24px;
+  border-radius: 16px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+
+  &.completed { background-color: rgba(0, 166, 81, .12); color: var(--success); }
+  &.pending { background-color: rgba(255, 165, 0, .12); color: var(--warning); }
+  &.processing { background-color: rgba(0, 102, 204, .12); color: var(--info); }
+  &.failed { background-color: rgba(220, 0, 0, .12); color: var(--error); }
+}
+
+.pagination { display: flex; gap: var(--spacing-sm); padding: var(--spacing-md); justify-content: center; }
+
+.loading { display: flex; justify-content: center; padding: var(--spacing-lg); }
+.empty { padding: var(--spacing-lg); text-align: center; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.transactions-header {
+  margin-bottom: 40px;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.transactions-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.summary-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.summary-content {
+  flex: 1;
+
+  h3 {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0 8px 0;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .balance {
+    color: #dc0000;
+  }
+
+  .income {
+    color: #27ae60;
+  }
+
+  .expense {
+    color: #dc0000;
+  }
+}
+
+.transactions-section {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+}
+
+.transactions-table-wrapper {
+  overflow-x: auto;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+
+  thead {
+    background-color: #f9f9f9;
+    border-bottom: 2px solid #ddd;
+
+    th {
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f9f9f9;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 15px;
+      color: #333;
+    }
+  }
+}
+
+.transaction-row {
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+.transaction-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .transaction-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+}
+
+.transaction-type {
+  .type-badge {
+    background: #f0f0f0;
+    color: #666;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}
+
+.transaction-amount {
+  font-weight: 700;
+  font-family: inherit; /* Remove courier new */
+  letter-spacing: -0.5px;
+
+  &.positive {
+    color: #27ae60;
+  }
+
+  &:not(.positive) {
+    color: #dc0000;
+  }
+}
+
+.transaction-status {
+  .status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+
+    &.completado {
+      background-color: rgba(39, 174, 96, 0.1);
+      color: #27ae60;
+    }
+
+    &.pendiente {
+      background-color: rgba(230, 185, 0, 0.1);
+      color: #d68910;
+    }
+
+    &.procesando {
+      background-color: rgba(52, 152, 219, 0.1);
+      color: #3498db;
+    }
+
+    &.fallido {
+      background-color: rgba(220, 0, 0, 0.1);
+      color: #dc0000;
+    }
+  }
+}
+
+.transaction-date {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.transaction-actions {
+  text-align: center;
+
+  .action-link {
+    color: #dc0000;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: rgba(220, 0, 0, 0.1);
+      color: #a50000;
+    }
+  }
+}
+
+@media (max-width: 640px) { .trailing { align-self: flex-start; } }

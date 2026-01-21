@@ -1,0 +1,58 @@
+<div class="transactions-container">
+  <div class="page-header">
+    <div>
+      <h1>Operaciones</h1>
+      <p class="subtitle">Monitorea y rastrea tus operaciones de transacción.</p>
+    </div>
+    <button mat-flat-button color="primary" (click)="openCreateForm()">
+      <mat-icon>add</mat-icon>&nbsp;Nueva transacción
+    </button>
+  </div>
+
+  <mat-card class="list-card" *ngIf="!isLoading">
+    <div class="card-title">
+      <span>Lista de Operaciones</span>
+      <span class="count">{{ totalTransactions }} operaciones</span>
+    </div>
+    <mat-divider></mat-divider>
+
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let t of transactions" (click)="viewDetails(t)">
+        <div class="leading" matListItemIcon>
+          <div class="icon" [ngClass]="t.type">$</div>
+        </div>
+        <div class="content" matLine>
+          <div class="title">{{ t.name }}</div>
+          <div class="meta">
+            <mat-icon>event</mat-icon>
+            <span>{{ t.createdAt | date: 'MMM d, h:mm a' }}</span>
+            <span class="sep">•</span>
+            <span>{{ t._id || t.id }}</span>
+          </div>
+        </div>
+        <div class="trailing" matListItemMeta>
+          <div class="amount">{{ t.amount | currency:'USD' }}</div>
+          <mat-chip-set>
+            <mat-chip [ngClass]="t.status" class="status-chip">{{ t.status | titlecase }}</mat-chip>
+          </mat-chip-set>
+        </div>
+      </a>
+    </mat-nav-list>
+
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button mat-button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
+      <button mat-stroked-button *ngFor="let page of pageRange" [color]="currentPage === page ? 'primary' : undefined" (click)="goToPage(page)">{{ page }}</button>
+      <button mat-button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>
+    </div>
+  </mat-card>
+
+  <div class="loading" *ngIf="isLoading">
+    <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+  </div>
+
+  <mat-card class="empty" *ngIf="!isLoading && transactions.length === 0">
+    <p>No hay transacciones disponibles</p>
+    <button mat-flat-button color="primary" (click)="openCreateForm()">Crear primera transacción</button>
+  </mat-card>
+</div>
+
